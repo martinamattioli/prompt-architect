@@ -28,5 +28,12 @@ export const ticketSchema = z.object({
     .describe("QA test cases ready for the QA team"),
 });
 
+/** Generic artifact for non-Software areas (LinkedIn, email, report, spec). */
+export const artifactSchema = z.object({
+  title: z.string().describe("Short title for the artifact"),
+  body: z.string().describe("Full content: post, email, report, or spec"),
+});
+
 export type Ticket = z.infer<typeof ticketSchema>;
 export type QATestCase = z.infer<typeof qaTestCaseSchema>;
+export type Artifact = z.infer<typeof artifactSchema>;

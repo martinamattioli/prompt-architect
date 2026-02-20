@@ -47,9 +47,9 @@ Internal meta-prompting workbench: **Reverse Prompting** (AI interviews the user
 
 ## Flow
 
-1. User describes a goal (e.g. “Build a stepper”).
-2. AI asks clarifying questions (state persistence, tech stack, edge cases, etc.).
+1. **Front Door**: Choose Area (Software / Management / Sales / Design), Goal, Company; optionally supporting text and Figma link. User describes a goal (e.g. “Build a stepper”).
+2. **Start interview**: Context is sent with every chat request; the interviewer adapts by area.
 3. User can attach a screenshot; the model uses it in the conversation.
 4. When the AI says “Requirements locked. Generating assets,” the **Generate assets** button appears.
-5. Clicking it calls `/api/generate-assets` with the conversation; the server summarizes then runs `generateObject` to produce the ticket.
-6. Copy the result as Markdown for Jira/Linear or internal use.
+5. **Software** → full ticket (Jira/Linear style). **Other areas** → title + body (LinkedIn, email, report, spec).
+6. Copy the result (Markdown or plain text).
