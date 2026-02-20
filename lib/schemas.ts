@@ -34,6 +34,15 @@ export const artifactSchema = z.object({
   body: z.string().describe("Full content: post, email, report, or spec"),
 });
 
+/** Generated UI component (React/TSX etc.) from refined requirements. */
+export const componentSchema = z.object({
+  name: z.string().describe("Component name, e.g. Stepper"),
+  filename: z.string().describe("Suggested filename, e.g. Stepper.tsx"),
+  code: z.string().describe("Full source code of the component, ready to paste"),
+  language: z.string().describe("Language: tsx, ts, jsx, js"),
+});
+
 export type Ticket = z.infer<typeof ticketSchema>;
 export type QATestCase = z.infer<typeof qaTestCaseSchema>;
 export type Artifact = z.infer<typeof artifactSchema>;
+export type Component = z.infer<typeof componentSchema>;

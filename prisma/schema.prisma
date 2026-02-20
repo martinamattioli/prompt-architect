@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// npm install -D tsx  then: npx prisma db seed
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model GlobalContext {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String
+  brandVoice      String
+  targetAudience  String
+  industryFocus   String?
+  tone            String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Project {
+  id            String        @id @default(cuid())
+  name          String
+  slug          String        @unique
+  company       String
+  techStack     String?
+  brandVoice    String?
+  archDecisions String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  chats         Chat[]
+  libraryItems  LibraryItem[]
+}
+
+model LibraryItem {
+  id                 String   @id @default(cuid())
+  projectId          String?
+  project            Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  title              String
+  area               String
+  requirementsSummary String
+  artifactType       String
+  artifactSnippet    String?
+  createdAt          DateTime @default(now())
+}
+
+model Chat {
+  id        String    @id @default(cuid())
+  projectId String?
+  project   Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+}
+
+model Message {
+  id           String   @id @default(cuid())
+  chatId       String
+  chat         Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  role         String
+  content      String
+  attachments  String?
+  createdAt    DateTime @default(now())
+}

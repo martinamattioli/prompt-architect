@@ -31,3 +31,8 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# SQLite
+*.db
+*.db-journal
+prisma/dev.db

@@ -20,6 +20,26 @@ export const COMPANIES = [
 export type AreaId = (typeof AREAS)[number]["id"];
 export type Company = (typeof COMPANIES)[number];
 
+/** Target platform options (Software/Design) */
+export const TARGET_PLATFORMS = [
+  { id: "", label: "Not specified" },
+  { id: "web", label: "Web" },
+  { id: "mobile", label: "Mobile" },
+  { id: "both", label: "Web + Mobile" },
+] as const;
+
+/** Common tech stack presets — click to add, minimal typing */
+export const TECH_STACK_PRESETS = [
+  "React",
+  "Next.js",
+  "Vue",
+  "TypeScript",
+  "Tailwind",
+  "Node",
+  "React Native",
+  "Expo",
+] as const;
+
 /** Goal input placeholder examples per area (for UX only) */
 export const GOAL_PLACEHOLDERS: Record<AreaId, string> = {
   software:
@@ -36,6 +56,10 @@ export interface FrontDoorContext {
   area: AreaId;
   goal: string;
   company: string;
+  /** Comma-separated or from presets */
+  techStack?: string;
+  targetPlatform?: string;
+  keyConstraints?: string;
   supportingText?: string;
   figmaLink?: string;
 }

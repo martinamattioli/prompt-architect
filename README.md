@@ -1,9 +1,10 @@
 # Prompt Architect | ZERF
 
-Internal meta-prompting workbench: **Reverse Prompting** (AI interviews the user) and **Multi-Output Chaining** (tickets, QA plans, client questions from one refined source).
+Project-aware meta-prompting workbench: **Project Context** (tech stack, brand voice, prior decisions) + **Reverse Prompting** (AI interviews the user) and **Multi-Output Chaining** (tickets, QA plans, client questions from one refined source).
 
 ## Features
 
+- **Project context & persistence** — Select a project (e.g. Sandals Online Check-in); the AI is grounded in its tech stack, brand voice, and architectural decisions. Chats and messages are stored (Projects, Chats, Messages tables).
 - **Interviewer (Reverse Prompting)** — The AI asks 3–5 clarifying questions before generating assets. Uses `useChat` (Vercel AI SDK) with a system prompt that blocks generation until “Requirements locked.”
 - **Structured assets** — After discovery, `generateObject` + Zod produces a ZERF-standard ticket: title, user story, technical requirements, Gherkin acceptance criteria, 3 client questions, and QA test cases.
 - **Multimodal** — Upload a Figma/UI screenshot; the model uses vision (GPT-4o) to extract layout, colors, and spacing and inject them into technical requirements.
@@ -16,15 +17,11 @@ Internal meta-prompting workbench: **Reverse Prompting** (AI interviews the user
    npm install
    ```
 
-2. **Environment**
+2. **Environment** — In `.env` set `DATABASE_URL="file:./prisma/dev.db"` (for Prisma). In `.env.local` set `OPENAI_API_KEY=sk-...`.
 
-   Copy `.env.example` to `.env.local` and set:
+3. **Database** — Run `npx prisma db push` then `npm run db:seed` to create tables and seed projects (Sandals Online Check-in, PRIOR, Micro-product).
 
-   ```bash
-   OPENAI_API_KEY=sk-...
-   ```
-
-3. **Run**
+4. **Run**
 
    ```bash
    npm run dev
@@ -41,6 +38,7 @@ Internal meta-prompting workbench: **Reverse Prompting** (AI interviews the user
 ## Stack
 
 - **Next.js 15** (App Router)
+- **Prisma** + **SQLite** (Projects, Chats, Messages)
 - **Vercel AI SDK** (`ai`, `@ai-sdk/react`, `@ai-sdk/openai`)
 - **Zod** for structured output schema
 - **Tailwind CSS** for UI
